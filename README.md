@@ -1,36 +1,38 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# LeetLog
 
-## Getting Started
+A personal tracker for LeetCode / interview-prep check-ins: log what you solved, keep your streak, and get problems you struggled with back for review.
 
-First, run the development server:
+> Work in progress — v0.1 is under development.
+
+## Tech stack
+
+Next.js (App Router) · TypeScript · PostgreSQL · Drizzle ORM · Tailwind CSS · Vitest
+
+## Quick start (local)
+
+Requirements: Node.js 22+, pnpm, Docker.
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone <this repo> && cd leetlog
+cp .env.example .env.local
+docker compose up -d          # starts Postgres on localhost:5432
+pnpm install && pnpm db:migrate
+pnpm dev                      # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+By default the app runs in single-user mode (`AUTH_MODE=local`), so no login setup is needed.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Command                                      | What it does                                          |
+| -------------------------------------------- | ----------------------------------------------------- |
+| `pnpm dev`                                   | Start the dev server                                  |
+| `pnpm lint` / `pnpm typecheck` / `pnpm test` | Lint, type-check, run unit tests                      |
+| `pnpm format`                                | Format the code with Prettier                         |
+| `pnpm db:generate`                           | Create a migration from changes in `src/db/schema.ts` |
+| `pnpm db:migrate`                            | Apply migrations to the database in `DATABASE_URL`    |
+| `pnpm db:studio`                             | Browse the database in Drizzle Studio                 |
 
-## Learn More
+## License
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+MIT

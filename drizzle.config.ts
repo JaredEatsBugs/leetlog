@@ -1,0 +1,19 @@
+import { defineConfig } from "drizzle-kit";
+
+// drizzle-kit does not load .env.local the way Next.js does.
+// On Vercel / CI the variables come from the environment, so a missing file is fine.
+try {
+  process.loadEnvFile(".env.local");
+} catch {}
+
+if (!process.env.DATABASE_URL) {
+  throw new Error("DATABASE_URL is not set. Copy .env.example to .env.local first.");
+}
+
+export default defineConfig({
+  schema: "./src/db/schema.ts",
+  out: "./drizzle",
+  dialect: "postgresql",
+  dbCredentials: { url: process.env.DATABASE_URL },
+  strict: true,
+});
