@@ -15,7 +15,8 @@ A personal LeetCode / interview-prep check-in tracker, also a portfolio project.
 ### Current status
 
 - v0.1 step 0–1 done: deps installed, initial migration generated in `drizzle/` and applied to the local Docker Postgres (OrbStack), format / lint / typecheck / test pass.
-- Next: step 2 (pure-function business logic + Vitest tests).
+- v0.1 step 2 done: `src/lib/` has `day.ts` (user-day keys: timezone + day_start_hour), `streak.ts`, `review.ts` (review queue from attempts) and `heatmap.ts`, all with tests.
+- Next: step 3 (Auth.js GitHub OAuth + `AUTH_MODE=local`).
 
 ### Conventions
 
