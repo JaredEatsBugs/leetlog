@@ -16,7 +16,9 @@ A personal LeetCode / interview-prep check-in tracker, also a portfolio project.
 
 - v0.1 step 0–1 done: deps installed, initial migration generated in `drizzle/` and applied to the local Docker Postgres (OrbStack), format / lint / typecheck / test pass.
 - v0.1 step 2 done: `src/lib/` has `day.ts` (user-day keys: timezone + day_start_hour), `streak.ts`, `review.ts` (review queue from attempts) and `heatmap.ts`, all with tests.
-- Next: step 3 (Auth.js GitHub OAuth + `AUTH_MODE=local`).
+- v0.1 step 3 done: Auth.js (`src/auth.ts`, GitHub, JWT sessions, OAuth tokens not stored) + `accounts` table. Route handlers get the user via `getCurrentUser()` in `src/server/current-user.ts` (local mode: auto-created user `local`). `GET /api/me`; shared API types live in `src/contracts/`. GitHub mode is verified only up to the redirect to GitHub (no real OAuth App yet).
+- Next: step 4 (API: attempts, today, problems).
+- `cacheComponents` is on: GET route handlers prerender at build unless they read request data, so per-user handlers must go through `getCurrentUser()` (it calls `connection()`).
 
 ### Conventions
 

@@ -1,8 +1,10 @@
+import type { AdapterAccountType } from "next-auth/adapters";
 import {
   index,
   integer,
   pgEnum,
   pgTable,
+  primaryKey,
   smallint,
   text,
   timestamp,
@@ -27,6 +29,30 @@ export const users = pgTable("users", {
   dailyGoal: smallint("daily_goal").notNull().default(3),
   createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
 });
+
+// ---------- accounts ----------
+// Links a login provider account (GitHub) to a user. Shape required by the Auth.js
+// Drizzle adapter, so the token columns keep their snake_case property names.
+// We do not call the GitHub API, so src/auth.ts never stores the tokens themselves.
+export const accounts = pgTable(
+  "accounts",
+  {
+    userId: text("user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    type: text("type").$type<AdapterAccountType>().notNull(),
+    provider: text("provider").notNull(),
+    providerAccountId: text("provider_account_id").notNull(),
+    refresh_token: text("refresh_token"),
+    access_token: text("access_token"),
+    expires_at: integer("expires_at"),
+    token_type: text("token_type"),
+    scope: text("scope"),
+    id_token: text("id_token"),
+    session_state: text("session_state"),
+  },
+  (t) => [primaryKey({ columns: [t.provider, t.providerAccountId] })],
+);
 
 // ---------- problems ----------
 // Shared catalog of LeetCode problems (not per user).
