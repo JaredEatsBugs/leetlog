@@ -1,6 +1,7 @@
 import type { MeResponse } from "@/contracts/me";
 import { env } from "@/env";
-import { getCurrentUser, unauthorized } from "@/server/current-user";
+import { getCurrentUser } from "@/server/current-user";
+import { unauthorized } from "@/server/http";
 
 /** GET /api/me: the current user and their settings, or 401. */
 export async function GET() {

@@ -40,8 +40,3 @@ async function ensureLocalUser(): Promise<User> {
     .returning();
   return user;
 }
-
-/** JSON 401 response for route handlers. */
-export function unauthorized(): Response {
-  return Response.json({ error: "unauthorized" }, { status: 401 });
-}
