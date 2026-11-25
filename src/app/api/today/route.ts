@@ -28,6 +28,7 @@ export async function GET() {
       ...item,
       problem: toProblemDto(problemById.get(problemId)!),
     })),
+    reviewDueTomorrow: summary.reviewDueTomorrow,
     todayAttempts: summary.todayAttempts.map((a) =>
       toAttemptDto(a.row.attempt, a.row.problem, user),
     ),

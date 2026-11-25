@@ -28,3 +28,20 @@ export function parseProblemQuery(input: string): ProblemQuery {
 export function problemUrl(slug: string): string {
   return `https://leetcode.com/problems/${slug}/`;
 }
+
+/** Best guess at a LeetCode slug from a title ("Two Sum" → "two-sum"). The user can correct it. */
+export function slugFromTitle(title: string): string {
+  return title
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+/** Best guess at a title from a slug ("two-sum" → "Two Sum"). */
+export function titleFromSlug(slug: string): string {
+  return slug
+    .split("-")
+    .filter(Boolean)
+    .map((w) => w[0].toUpperCase() + w.slice(1))
+    .join(" ");
+}

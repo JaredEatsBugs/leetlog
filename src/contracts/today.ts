@@ -27,6 +27,8 @@ export const todayResponse = z.object({
   streak: z.object({ current: z.number().int(), longest: z.number().int() }),
   /** Most overdue first. */
   reviewQueue: z.array(reviewItemDto),
+  /** Problems that become due tomorrow (not counting ones already due). */
+  reviewDueTomorrow: z.number().int(),
   /** Newest first. */
   todayAttempts: z.array(attemptDto),
   /** Monday through today. */

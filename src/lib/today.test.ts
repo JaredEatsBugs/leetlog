@@ -34,6 +34,7 @@ describe("summarizeToday", () => {
       at(3, "2026-11-23", 22, "solo"),
       at(4, "2026-11-24", 9, "solo"),
       at(5, "2026-11-24", 20, "hint"),
+      at(7, "2026-11-22", 10, "hint"), // due tomorrow (11-25)
       at(6, "2026-11-25", 2, "solo"), // 02:00 on the 25th still counts for the 24th
     ];
     const s = summarizeToday(attempts, now, settings);
@@ -44,11 +45,12 @@ describe("summarizeToday", () => {
       "5@2026-11-24",
       "4@2026-11-24",
     ]);
-    expect(s.streak).toEqual({ current: 2, longest: 2 });
+    expect(s.streak).toEqual({ current: 3, longest: 3 }); // 22nd, 23rd, 24th
     expect(s.reviewQueue.map((r) => [r.problemId, r.overdueDays])).toEqual([
       [1, 1],
       [2, 0],
     ]);
+    expect(s.reviewDueTomorrow).toBe(1);
     expect(s.thisWeek).toEqual({ start: "2026-11-23", attempts: 5, soloRate: 3 / 5 });
 
     const lastWeek = s.heatmap[19];

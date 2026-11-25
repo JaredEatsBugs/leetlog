@@ -8,6 +8,8 @@ export type TodaySummary<A> = {
   solvedToday: number;
   streak: Streak;
   reviewQueue: ReviewItem[];
+  /** Problems that become due tomorrow (not counting ones already due). */
+  reviewDueTomorrow: number;
   /** Newest first. */
   todayAttempts: A[];
   thisWeek: { start: DayKey; attempts: number; soloRate: number | null };
@@ -37,12 +39,16 @@ export function summarizeToday<A extends ReviewAttempt>(
   const solo = week.filter((x) => x.a.result === "solo").length;
 
   const counts = countByDay(attempts, settings);
+  const tomorrow = addDays(today, 1);
 
   return {
     today,
     solvedToday: todayAttempts.length,
     streak: computeStreak(counts.keys(), today),
     reviewQueue: reviewQueue(attempts, today, settings),
+    reviewDueTomorrow: reviewQueue(attempts, tomorrow, settings).filter(
+      (r) => r.dueDay === tomorrow,
+    ).length,
     todayAttempts,
     thisWeek: {
       start: weekStart,

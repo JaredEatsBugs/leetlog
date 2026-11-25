@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { parseProblemQuery, problemUrl } from "./leetcode";
+import { parseProblemQuery, problemUrl, slugFromTitle, titleFromSlug } from "./leetcode";
 
 describe("parseProblemQuery", () => {
   it("reads problem numbers", () => {
@@ -35,5 +35,20 @@ describe("parseProblemQuery", () => {
 describe("problemUrl", () => {
   it("builds the leetcode.com URL", () => {
     expect(problemUrl("two-sum")).toBe("https://leetcode.com/problems/two-sum/");
+  });
+});
+
+describe("slug / title guesses", () => {
+  it("guesses a slug from a title", () => {
+    expect(slugFromTitle("Two Sum")).toBe("two-sum");
+    expect(slugFromTitle("  Best Time to Buy and Sell Stock II ")).toBe(
+      "best-time-to-buy-and-sell-stock-ii",
+    );
+    expect(slugFromTitle("Pow(x, n)")).toBe("pow-x-n");
+  });
+
+  it("guesses a title from a slug", () => {
+    expect(titleFromSlug("two-sum")).toBe("Two Sum");
+    expect(titleFromSlug("3sum")).toBe("3sum");
   });
 });
