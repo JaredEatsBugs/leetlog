@@ -14,8 +14,7 @@ A personal LeetCode / interview-prep check-in tracker, also a portfolio project.
 
 ### Current status
 
-- v0.1 step 0–1 done: deps installed, initial migration generated in `drizzle/`, format / lint / typecheck / test pass.
-- Not yet run: `docker compose up -d && pnpm db:migrate` (Docker was not installed on the dev machine at the time).
+- v0.1 step 0–1 done: deps installed, initial migration generated in `drizzle/` and applied to the local Docker Postgres (OrbStack), format / lint / typecheck / test pass.
 - Next: step 2 (pure-function business logic + Vitest tests).
 
 ### Conventions
