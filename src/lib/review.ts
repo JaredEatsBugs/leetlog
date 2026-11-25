@@ -6,6 +6,7 @@ export type AttemptResult = Attempt["result"];
 /**
  * Days until a problem comes back for review, by the result of its latest attempt.
  * null = solved independently, so it leaves the review queue.
+ * Intervals are deliberately fixed (they do not grow with each review); decided 2026-11-24.
  */
 export const REVIEW_INTERVAL_DAYS: Record<AttemptResult, number | null> = {
   solo: null,
