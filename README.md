@@ -64,7 +64,7 @@ drizzle/       Generated SQL migrations
 Requirements: Node.js 22+, pnpm, Docker (Docker Desktop or OrbStack).
 
 ```bash
-git clone <this repo> && cd leetlog
+git clone https://github.com/JaredEatsBugs/leetlog.git && cd leetlog
 cp .env.example .env.local
 docker compose up -d          # starts Postgres on localhost:5432
 pnpm install && pnpm db:migrate
