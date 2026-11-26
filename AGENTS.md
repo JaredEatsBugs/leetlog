@@ -21,6 +21,21 @@ A personal LeetCode / interview-prep check-in tracker, also a portfolio project.
 - The shared problem catalog starts empty; problems are added when a client posts an attempt with `problem: {slug, title, difficulty, …}`. Decided 2026-11-24: no import from LeetCode for now. The catalog fills up through use, so the log-attempt modal must let the user type title / difficulty / tags when search finds nothing (the extension will send them from the LeetCode page).
 - v0.1 step 5 (first pass) done: Today page, Log page and the "记一道题" dialog (N to open, ⌘↵ to save), styled after the mockup with Tailwind tokens in `src/app/globals.css`. Pages are client components that read the REST API through SWR (`src/components/`), the same API the extension will use; `AppShell` handles sign-in (github mode) and the dialog. Not done yet: Problem detail page, settings (daily goal, time zone), weak topics card, shadcn/ui.
 - `cacheComponents` is on: GET route handlers prerender at build unless they read request data, so per-user handlers must go through `getCurrentUser()` (it calls `connection()`).
+- Code is on GitHub (public): https://github.com/JaredEatsBugs/leetlog. CI (`.github/workflows/ci.yml`) passes on `main`.
+
+### Decisions made (don't revisit without asking)
+
+- Review intervals are fixed: hint → +3 days, solution → +1 day, solo → leaves the queue. They do not grow with each review (2026-11-24).
+- No import of the LeetCode catalog for now; it fills up through use (2026-11-24).
+- The CI annotation "Node.js 20 is deprecated" (actions/checkout, setup-node, pnpm/action-setup @v4) is left as is for now; the owner chose not to upgrade yet (2026-11-25).
+- Where the mockup differs from these rules, the rules win (e.g. the mockup's "solo → spot-check after 7 days" is not used; the weak-topics card waits for v0.4).
+
+### Next up
+
+- The owner will pick one of: **settings page** (daily goal, time zone, day start hour; needs `PATCH /api/me`) or **Problem detail page** (attempt history for one problem; needs `GET /api/problems/:id`).
+- Known gap: users created through GitHub sign-in get `timezone = 'UTC'` (schema default), so their "today" is wrong. Fix with the settings page, e.g. send the browser's `Intl.DateTimeFormat().resolvedOptions().timeZone` on first load. Local mode already uses the machine's time zone.
+- GitHub sign-in has never been tested end to end: it needs a real GitHub OAuth App (callback `http://localhost:3000/api/auth/callback/github`), see `.env.example`.
+- Still on the list for v0.1: weak-topics card, shadcn/ui.
 
 ### Conventions
 
